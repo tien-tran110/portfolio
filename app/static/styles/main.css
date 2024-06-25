@@ -108,3 +108,5 @@ body {
 .card {
     min-height: 100%;
 }
+
+#map { height: 300px; }
