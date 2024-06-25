@@ -47,6 +47,23 @@ def index():
         }
     ]
 
+
+    locations = [
+        {"lat": 33.4152, "lon": -111.8315, "title": "Mesa"},
+        {"lat": 32.715736, "lon": -117.161087, "title": "San Diego"},
+        {"lat": 40.7607, "lon": -111.8939, "title": "Salt Lake City"},
+        {"lat": 33.753746, "lon": -84.38633, "title": "Atlanta"},
+        {"lat": 35.71453, "lon": -83.51189, "title": "Gatlinburg"},
+        {"lat": 35.71453, "lon": -82.5515, "title": "Asheville"},
+        {"lat": 27.964157, "lon": -82.4526, "title": "Tampa"},
+        {"lat": 15.8801, "lon": 108.3380, "title": "Hoi An"},
+        {"lat": 11.0686, "lon": 107.1676, "title": "Dong Nai"},
+    ]
+
+    return render_template('home.html', title="MLH Fellow", url=os.getenv("URL"), work_experiences=work_experiences, educations=educations, locations=locations)
+
+@app.route('/hobby')
+def hobby():
     hobbies = [
         {
             'title': 'Playing Guitar',
@@ -64,17 +81,4 @@ def index():
             'image': './static/img/boba.png'
         },
     ]
-
-    locations = [
-        {"lat": 33.4152, "lon": -111.8315, "title": "Mesa"},
-        {"lat": 32.715736, "lon": -117.161087, "title": "San Diego"},
-        {"lat": 40.7607, "lon": -111.8939, "title": "Salt Lake City"},
-        {"lat": 33.753746, "lon": -84.38633, "title": "Atlanta"},
-        {"lat": 35.71453, "lon": -83.51189, "title": "Gatlinburg"},
-        {"lat": 35.71453, "lon": -82.5515, "title": "Asheville"},
-        {"lat": 27.964157, "lon": -82.4526, "title": "Tampa"},
-        {"lat": 15.8801, "lon": 108.3380, "title": "Hoi An"},
-        {"lat": 11.0686, "lon": 107.1676, "title": "Dong Nai"},
-    ]
-
-    return render_template('index.html', title="MLH Fellow", url=os.getenv("URL"), work_experiences=work_experiences, educations=educations, hobbies=hobbies, locations=locations)
+    return render_template('hobby.html',title="MLH Fellow", hobbies=hobbies)
