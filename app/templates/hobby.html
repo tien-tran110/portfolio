@@ -1,0 +1,20 @@
+{% extends "index.html" %} {% block title %} Hobby {% endblock %} {% block
+content %}
+<!-- Hobbies -->
+<div class="container mt-5">
+  <h1 class="mb-4">My Hobbies</h1>
+  <div class="row mb-5">
+    {% for hobby in hobbies %}
+    <div class="col-md-4">
+      <div class="card mb-4 shadow-sm">
+        <img src="{{ hobby.image }}" class="card-img-top" alt="Hobbies" />
+        <div class="card-body">
+          <h5 class="card-title">{{ hobby.title }}</h5>
+          <p class="card-text">{{ hobby.description }}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

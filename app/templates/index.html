@@ -40,7 +40,7 @@
     ></script>
 
     <link rel="icon" href="./static/img/favicon.ico" type="image/x-icon" />
-    <title>{{ title }}</title>
+    <title>{% block title %} {{title}} {% endblock %}</title>
   </head>
 
   <body>
@@ -61,120 +61,6 @@
       <h1>{{ title }}</h1>
     </div>
 
-    <!-- About me  -->
-    <div class="container mt-5">
-      <div class="row align-items-center">
-        <div class="col-md-8">
-          <h1 class="mb-4">About me</h1>
-          <p class="text-justify">
-            Hello! I am Esther, a passionate and dedicated computer science
-            student with a keen interest in software development, data science,
-            and artificial intelligence. Currently pursuing my degree at Georgia
-            State University, I am constantly exploring the latest technologies
-            and honing my skills to solve real-world problems. <br />
-            <br />
-            In my free time, I enjoy playing guitar, hiking, and going for boba
-            tea with my friends.
-          </p>
-        </div>
-        <div class="col-md-4">
-          <img
-            src="../static/img/portrait.jpg"
-            alt="portrait"
-            width="250"
-            height="300"
-            alt="portrait"
-            class="rounded"
-          />
-        </div>
-      </div>
-    </div>
-
-    <!-- Work Experience -->
-    <div class="container mt-5">
-      <h1 class="mb-4">Work Experience</h1>
-      <div class="content">
-        {% for experience in work_experiences %}
-        <div class="timeline mb-4">
-          <h4>{{ experience.job_title }}</h4>
-          <h6 class="text-muted">
-            {{ experience.company }} - {{ experience.start_date}} - {{
-            experience.end_date }}
-          </h6>
-          <p class="text-justify">
-            {% for point in experience.description %} - {{ point }}<br />
-            {% endfor %}
-          </p>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Hobbies -->
-    <div class="container mt-5">
-      <h1 class="mb-4">Hobbies</h1>
-      <div class="row">
-        {% for hobby in hobbies %}
-        <div class="col-md-4">
-          <div class="card mb-4 shadow-sm">
-            <img src="{{ hobby.image }}" class="card-img-top" alt="Hobbies" />
-            <div class="card-body">
-              <h5 class="card-title">{{ hobby.title }}</h5>
-              <p class="card-text">{{ hobby.description }}</p>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Education -->
-    <div class="container mt-5">
-      <h1 class="mb-4">Education</h1>
-      <div class="row">
-        {% for education in educations %}
-        <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-              <h5 class="card-title">{{ education.degree }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">
-                {{ education.institution }}
-              </h6>
-              <p class="card-text">{{ education.description }}</p>
-              <p class="card-text">
-                Year of Graduation: {{ education.end_date }}
-              </p>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Map displaying visited location -->
-    <div class="container mt-5 mb-5">
-      <h1 class="mb4">Places I have visited</h1>
-
-      <div id="map"></div>
-
-      <script>
-        var map = L.map("map").setView([33.753746, -84.38633], 2);//center in Atlanta, US
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 19,
-          attribution:
-            '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        }).addTo(map);
-
-        //pass data from flask to javascript
-        var locations = {{ locations | tojson }};
-        console.log(locations);
-        locations.forEach(function (location) {
-          L.marker([location.lat, location.lon])
-            .addTo(map)
-            .bindPopup(location.title)
-            .openPopup();
-        });
-      </script>
-    </div>
+    <div class="content">{% block content %}{% endblock %}</div>
   </body>
 </html>
