@@ -81,3 +81,7 @@ def hobby():
         },
     ]
     return render_template('hobby.html',title="MLH Fellow", hobbies=hobbies)
+
+@app.route('/contact')
+def contact():
+     return render_template('contact.html',title="MLH Fellow")
