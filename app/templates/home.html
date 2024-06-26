@@ -1,11 +1,12 @@
-{% extends "index.html" %} {% block title %}Home{% endblock %} {% block
-content%}
+{% extends "index.html" %} 
+{% block title %} Home {% endblock %} 
+{% block content%}
 
 <!-- About me  -->
 <div class="container mt-5">
   <div class="row align-items-center">
     <div class="col-md-8">
-      <h1 class="mb-4">About me</h1>
+      <h1 class="mb-4">/ about me </h1>
       <p class="text-justify">
         Hello! I am Esther, a passionate and dedicated computer science student
         with a keen interest in software development, data science, and
@@ -32,7 +33,7 @@ content%}
 
 <!-- Work Experience -->
 <div class="container mt-5">
-  <h1 class="mb-4">Work Experience</h1>
+  <h1 class="mb-4">/ work experience</h1>
   <div class="content">
     {% for experience in work_experiences %}
     <div class="timeline mb-4">
@@ -52,10 +53,10 @@ content%}
 
 <!-- Education -->
 <div class="container mt-5">
-  <h1 class="mb-4">Education</h1>
+  <h1 class="mb-4">/ education</h1>
   <div class="row">
     {% for education in educations %}
-    <div class="col-md-6">
+    <div class="col-md-6 mb-4">
       <div class="card mb-4 shadow-sm">
         <div class="card-body">
           <h5 class="card-title">{{ education.degree }}</h5>
@@ -73,7 +74,7 @@ content%}
 
 <!-- Map displaying visited location -->
 <div class="container mt-5 mb-5">
-  <h1 class="mb4">Places I have visited</h1>
+  <h1 class="mb4">/ places I have visited</h1>
 
   <div id="map"></div>
 
