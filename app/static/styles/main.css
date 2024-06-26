@@ -171,3 +171,7 @@ body {
 .menu-button:hover {
     color:#fff;
 }
+
+.bold-label {
+    font-weight: bold;
+}

@@ -1,0 +1,31 @@
+{% extends "index.html" %} 
+{% block title %} Hobby {% endblock %} 
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="contact-form text-center">
+          <h1 class="mb-4">Get in Touch</h1>
+          <p class="mb-4">Have a question or want to work together? Fill out the form below and I'll get back to you as soon as possible.</p>
+          <form action="https://formspree.io/f/xjvnaodk" method="POST">
+            <div class="row mb-3">
+              <div class="col">
+                <label for="name" class="form-label bold-label">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Your name" />
+              </div>
+              <div class="col">
+                <label for="email" class="form-label bold-label">Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Your email" required/>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label bold-label">Message</label>
+              <textarea class="form-control" name="message" rows="5" placeholder="Your message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark mb-4">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
