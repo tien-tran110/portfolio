@@ -44,14 +44,33 @@
   </head>
 
   <body>
+
+    <!-- The overlay -->
+    <div id="myNav" class="overlay">
+
+      <!-- Button to close the overlay navigation -->
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+      <!-- Overlay content -->
+      <div class="overlay-content">
+        <a href="/">About</a>
+        <a href="/hobby">Hobbies</a>
+      </div>
+
+    </div>
+
     <header class="nav-bar">
+      <!-- Use to open up menu bar -->
+      <span class="menu-button" onclick="openNav()">&#9776;</span>
+
       <div class="nav-content">
         <a href="/">
           <div class="nav-logo">
             <img src="./static/img/logo.svg" />
           </div>
         </a>
-      </div>
+      </div> 
+      
     </header>
 
     <div class="profile">
@@ -62,5 +81,17 @@
     </div>
 
     <div class="content">{% block content %}{% endblock %}</div>
+
+    <script>
+     /* Open menu */
+      function openNav() {
+        document.getElementById("myNav").style.width = "100%";
+      }
+
+      /* Close menu */
+      function closeNav() {
+        document.getElementById("myNav").style.width = "0%";
+      }
+    </script>
   </body>
 </html>
