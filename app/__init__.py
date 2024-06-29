@@ -59,7 +59,7 @@ def index():
         {"lat": 11.0686, "lon": 107.1676, "title": "Dong Nai"},
     ]
 
-    return render_template('home.html', title="MLH Fellow", url=os.getenv("URL"), work_experiences=work_experiences, educations=educations, locations=locations)
+    return render_template('home.html', title="Esther Tran", url=os.getenv("URL"), work_experiences=work_experiences, educations=educations, locations=locations)
 
 @app.route('/hobby')
 def hobby():
@@ -80,8 +80,8 @@ def hobby():
             'image': './static/img/boba.png'
         },
     ]
-    return render_template('hobby.html',title="MLH Fellow", hobbies=hobbies)
+    return render_template('hobby.html',title="Esther Tran", hobbies=hobbies)
 
 @app.route('/contact')
 def contact():
-     return render_template('contact.html',title="MLH Fellow")
+     return render_template('contact.html',title="Esther Tran")
