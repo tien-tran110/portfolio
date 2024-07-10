@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#Kill all existing tmux sessions
-tmux kill-server
+#Kill active flask session
+tmux kill-session -t flask_session
 # Navigate to project directory
 cd portfolio
 
