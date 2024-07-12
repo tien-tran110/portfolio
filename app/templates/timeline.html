@@ -1,0 +1,103 @@
+{% extends "index.html" %} 
+{% block title %} Timeline Post {% endblock %} 
+{% block content %}
+<!-- Timeline Post Form -->
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="contact-form text-center">
+        <h1 class="mb-4">Get in Touch</h1>
+        <p class="mb-4">
+          Have a question or want to work together? Fill out the form below and
+          I'll get back to you as soon as possible.
+        </p>
+        <form id="form">
+          <div class="row mb-3">
+            <div class="col">
+              <label for="name" class="form-label bold-label">Name</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                placeholder="Your name"
+              />
+            </div>
+            <div class="col">
+              <label for="email" class="form-label bold-label">Email</label>
+              <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Your email"
+                required
+              />
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label bold-label">Message</label>
+            <textarea
+              class="form-control"
+              name="content"
+              rows="5"
+              placeholder="Your message"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="btn btn-dark mb-4">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    /* Sending the formData object as payload using Fetch */
+    const form = document.getElementById('form');
+    form.addEventListener('submit', function(e) {
+        // Prevent default behavior:
+        e.preventDefault();
+        // Create payload as new FormData object:
+        const payload = new FormData(form);
+        // Post the payload using Fetch:
+        fetch('/api/timeline_post', {
+        method: 'POST',
+        body: payload,
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            window.location.href = window.location.href;
+        })
+        .catch(error => console.error('Error:', error));
+    })
+</script>
+
+<!-- Display All Requests -->
+<div class="container">
+<div class="row justify-content-center">
+<div id="timeline-container" class="col-md-8">
+    <h2 class="mb-4">Previous Requests</h2>
+    <div class="row">
+    {% for request in requests %}
+    <div class="mb-3">
+        <div class="bg-light p-3 border rounded">
+        <div class="row">
+            <div class="col-md-4">
+            <h5>{{ request.name }}</h5>
+            <p class="text-muted">{{ request.email }}</p>
+            </div>
+            <div class="col-md-8">
+            <p>{{ request.content }}</p>
+            <small class="text-muted">Posted on: {{ request.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock %}
+

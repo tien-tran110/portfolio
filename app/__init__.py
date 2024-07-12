@@ -138,5 +138,10 @@ def delete_time_line_post(id):
     except TimelinePost.DoesNotExist:
         return "Post not found!"
     
+@app.route('/timeline')
+def timeline():
+     requests = get_time_line_post()
+     return render_template('timeline.html',title="Esther Tran", requests=requests['timeline_posts'])
+    
     
     
