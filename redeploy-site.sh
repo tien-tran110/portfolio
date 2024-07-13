@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#Kill active flask session
-tmux kill-session -t flask_session
 # Navigate to project directory
 cd portfolio
 
@@ -12,11 +10,13 @@ git fetch && git reset origin/main --hard
 source python3-virtualenv/bin/activate
 pip install -r requirements.txt
 
-# Create a script to start the Flask server
-echo '#!/bin/bash
-cd portfolio
-source python3-virtualenv/bin/activate
-flask run --host=0.0.0.0' > start-flask.sh
-chmod +x start-flask.sh
+systemctl start myportfolio
+systemctl enable myportfolio
 
-tmux new-session -d -s flask_session './start-flask.sh'
+# If there are any changes to the service unit file 
+systemctl daemon-reload
+systemctl restart myportfolio
+
+# Check for the status of the service
+systemctl status myportfolio
+
