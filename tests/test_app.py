@@ -20,6 +20,28 @@ class AppTestCase(unittest.TestCase):
         
         # Test if map exists on the page
         assert b'http://www.openstreetmap.org/copyright' in response.data
+    
+    # Test if the timeline page is working
+    def test_timeline(self):
+        response = self.client.get('/timeline')
+        assert response.status_code == 200
+        html = response.get_data(as_text=True)
+        assert b'<h2 class="mb-4">Previous Requests</h2>' in html
+        
+    # Test if the hobby page is working
+    def test_hobby(self):
+        response = self.client.get('/hobby')
+        assert response.status_code == 200
+        html = response.get_data(as_text=True)
+        assert 'I love the sound of guitar and learning how to play is really rewarding.' in html
+        assert 'Hiking' in html
+    
+    # Test if the contact page is working
+    def test_contact(self):
+        response = self.client.get('/contact')
+        assert response.status_code == 200
+        html = response.get_data(as_text=True)
+        assert b'https://formspree.io/f/xjvnaodk' in response.data
 
     def test_timeline(self):
         response = self.client.get('/api/timeline_post')
@@ -79,15 +101,38 @@ class AppTestCase(unittest.TestCase):
         assert post['content'] == 'Hello, world!'
         
         
-        # Test DELETE /delete/<id>
+        # Test DELETE /delete/<id> with valid id
         post_id = post['id']
         delete_response = self.client.delete(f'/delete/{post_id}')
         assert delete_response.status_code == 200
         assert delete_response.data == b"Post was deleted successfully!"
+        
+        # Test DELETE /delete/<id> with invalid id
+        delete_response = self.client.delete(f'/delete/{post_id}')
+        assert delete_response.status_code == 200
+        assert delete_response.data == b"Post not found!"
 
         # Test POST /api/timeline_post with missing fields
         response = self.client.post('/api/timeline_post', data={})
         assert response.status_code == 400  # or appropriate error code
+        
+        # Test POST /api/timeline_post with invalid email
+        response = self.client.post('/api/timeline_post', data={
+            'name': 'Test User',
+            'email': 'test1@example',
+            'content': 'Hello, world!'
+        })
+        assert response.status_code == 400
+        assert response.data == b"Invalid email address!"
+        
+        # Test POST /api/timeline_post with empty data
+        response = self.client.post('/api/timeline_post', data={
+            'name': '',
+            'email': '',
+            'content': ''
+        })
+        assert response.status_code == 400
+        assert response.data == b"Name is required!"
 
 if __name__ == '__main__':
     unittest.main() 
