@@ -4,16 +4,17 @@ import datetime
 from playhouse.shortcuts import model_to_dict
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
+import re
 
 
 load_dotenv()
 app = Flask(__name__)
 
-mydb = MySQLDatabase(os.getenv("MYSQL_DATABASE"), 
-                     user=os.getenv("MYSQL_USER"),
-                     password=os.getenv("MYSQL_PASSWORD"),
-                     host=os.getenv("MYSQL_HOST"),
-                     port=3306)
+if os.getenv('TESTING') == 'true':
+    print("Running in test mode")
+    mydb = SqliteDatabase('file:memory:?mode=memory&cache=shared', uri=True)
+else:
+    mydb = MySQLDatabase(os.getenv('MYSQL_DATABASE'), user=os.getenv('MYSQL_USER'), password=os.getenv('MYSQL_PASSWORD'), host=os.getenv('MYSQL_HOST'), port=3306)
 # print(mydb)
 
 class TimelinePost(Model):
@@ -115,6 +116,17 @@ def post_time_line_post():
     name = request.form['name']
     email = request.form['email']
     content = request.form['content']
+    
+    # Input validation
+    if not name:
+        return "Name is required!", 400
+    if not email:
+        return "Email is required!", 400
+    if re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email) is None:
+        return "Invalid email address!", 400
+    if not content:
+        return "Content is required!", 400
+    
     timeline_post = TimelinePost.create(name=name, email=email, content=content)
 
     return model_to_dict(timeline_post)
