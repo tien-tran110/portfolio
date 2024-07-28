@@ -6,17 +6,8 @@ cd portfolio
 # Fetch and reset git repository
 git fetch && git reset origin/main --hard
 
-# Activate the virtual environment and install dependencies
-source python3-virtualenv/bin/activate
-pip install -r requirements.txt
+# Spin containers down to prevent out of memory issues on our VPS
+docker compose -f docker-compose.prod.yml down
 
-systemctl start myportfolio
-systemctl enable myportfolio
-
-# If there are any changes to the service unit file 
-systemctl daemon-reload
-systemctl restart myportfolio
-
-# Check for the status of the service
-systemctl status myportfolio
+docker compose -f docker-compose.prod.yml up -d --build
 
