@@ -21,8 +21,8 @@ services:
     container_name: nginx
     image: jonasal/nginx-certbot
     restart: always
-    environment:
-      - CERTBOT_EMAIL=name@example.com 
+    env_file:
+      - .env
     ports:
       - 80:80
       - 443:443
