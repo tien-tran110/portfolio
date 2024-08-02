@@ -107,10 +107,6 @@ def hobby():
     ]
     return render_template('hobby.html',title="Esther Tran", hobbies=hobbies)
 
-@app.route('/contact')
-def contact():
-     return render_template('contact.html',title="Esther Tran")
-
 @app.route('/api/timeline_post', methods=['POST'])
 def post_time_line_post():
     name = request.form['name']
@@ -118,13 +114,13 @@ def post_time_line_post():
     content = request.form['content']
     
     # Input validation
-    if not name:
+    if not name or name.strip() == "":
         return "Name is required!", 400
-    if not email:
+    if not email or email.strip() == "":
         return "Email is required!", 400
     if re.match(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$", email) is None:
         return "Invalid email address!", 400
-    if not content:
+    if not content or content.strip() == "":
         return "Content is required!", 400
     
     timeline_post = TimelinePost.create(name=name, email=email, content=content)

@@ -35,13 +35,6 @@ class AppTestCase(unittest.TestCase):
         html = response.get_data(as_text=True)
         assert 'I love the sound of guitar and learning how to play is really rewarding.' in html
         assert 'Hiking' in html
-    
-    # Test if the contact page is working
-    def test_contact(self):
-        response = self.client.get('/contact')
-        assert response.status_code == 200
-        html = response.get_data(as_text=True)
-        assert b'https://formspree.io/f/xjvnaodk' in response.data
 
     def test_timeline(self):
         response = self.client.get('/api/timeline_post')
