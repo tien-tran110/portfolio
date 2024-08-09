@@ -1,10 +1,15 @@
-{% extends "index.html" %} 
-{% block title %} Timeline Post {% endblock title %} 
+{% extends "index.html" %}
+{% block title %} Timeline Post {% endblock title %}
 {% block content %}
 <!-- Timeline Post Form -->
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
+      <!-- Notification Banner -->
+      <div id="notification" class="alert alert-success" role="alert" style="display: none;">
+        Your message has been successfully submitted!
+      </div>
+      
       <div class="contact-form text-center">
         <h1 class="mb-4">Get in Touch</h1>
         <p class="mb-4">
@@ -51,33 +56,77 @@
 </div>
 
 <script>
-    /* Sending the formData object as payload using Fetch */
-    const form = document.getElementById('form');
-    form.addEventListener('submit', function(e) {
-        // Prevent default behavior:
-        e.preventDefault();
-        // Create payload as new FormData object:
-        const payload = new FormData(form);
-        // Post the payload using Fetch:
-        fetch('/api/timeline_post', {
-        method: 'POST',
-        body: payload,
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            window.location.href = window.location.href;
-        })
-        .catch(error => console.error('Error:', error));
-    })
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('form');
+        const notification = document.getElementById('notification');
+        const timelineContainer = document.getElementById('timeline-container');
+
+        form.addEventListener('submit', function(e) {
+            // Prevent default behavior:
+            e.preventDefault();
+            // Create payload as new FormData object:
+            const payload = new FormData(form);
+            // Post the payload using Fetch:
+            fetch('/api/timeline_post', {
+                method: 'POST',
+                body: payload,
+            })
+            .then(res => res.json())
+            .then(data => {
+                // Show the notification
+                notification.style.display = 'block';
+
+                // Hide the notification after 3 seconds
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+
+                // Insert the new post into the DOM
+                const postElement = document.createElement('div');
+                postElement.className = 'mb-3';
+                postElement.innerHTML = `
+                    <div class="bg-light p-3 border rounded">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h5>${data.name}</h5>
+                                <p class="text-muted">${data.email}</p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>${data.content}</p>
+                                <small class="text-muted">Posted on: ${new Date(data.created_at).toLocaleString()}</small>
+                            </div>
+                        </div>
+                    </div>`;
+                
+                // Append the new post to the timeline container
+                timelineContainer.insertBefore(postElement, timelineContainer.firstChild);
+
+                // Reset the form
+                form.reset();
+            })
+            .catch(error => {
+                // Display an error notification
+                notification.className = 'alert alert-danger';
+                notification.innerText = 'There was an error submitting your message. Please try again.';
+                notification.style.display = 'block';
+
+                // Hide the notification after 3 seconds
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                }, 3000);
+
+                console.error('Error:', error);
+            });
+        });
+    });
 </script>
 
 <!-- Display All Requests -->
 <div class="container">
 <div class="row justify-content-center">
-<div id="timeline-container" class="col-md-8">
+<div class="col-md-8">
     <h2 class="mb-4">All Requests</h2>
-    <div class="row">
+    <div class="row" id="timeline-container">
     {% for request in requests %}
     <div class="mb-3">
         <div class="bg-light p-3 border rounded">
