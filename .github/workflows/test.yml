@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-  pull_reuqest:
+  pull_request:
     branches:
       - main
 jobs:
