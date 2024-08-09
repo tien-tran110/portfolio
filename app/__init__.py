@@ -107,7 +107,7 @@ def hobby():
         {
             'title': 'Photography',
             'description': 'Photography is a delightful hobby where I enjoy capturing moments, making memories last a lifetime.',
-            'image': './static/img/photography.jpg'
+            'image': './static/img/photography.JPG'
         },
     ]
     return render_template('hobby.html',title="Esther Tran", hobbies=hobbies)
