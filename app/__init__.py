@@ -96,13 +96,18 @@ def hobby():
         },
         {
             'title': 'Hiking',
-            'description': ' Exploring new places is my passion. Every journey brings a new adventure.',
+            'description': 'Exploring new places is my passion. Every journey brings a new adventure.',
             'image': './static/img/hiking.jpeg'
         },
         {
             'title': 'Boba Tea',
-            'description': ' I enjoy conversation and experimenting different boba drinks with my friends and family.',
+            'description': 'I enjoy conversation and experimenting different boba drinks with my friends and family.',
             'image': './static/img/boba.png'
+        },
+        {
+            'title': 'Photography',
+            'description': 'Photography is a delightful hobby where I enjoy capturing moments, making memories last a lifetime.',
+            'image': './static/img/photography.jpg'
         },
     ]
     return render_template('hobby.html',title="Esther Tran", hobbies=hobbies)
