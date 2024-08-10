@@ -26,8 +26,8 @@ jobs:
       - name: Setup Python Virtual Environment
         run: python -m venv python3-virtualenv
 
-      - name: Intentionally fail the test
-        run: exit 1
+      # - name: Intentionally fail the test
+      #   run: exit 1
 
       - name: Install Dependencies
         run: python3-virtualenv/bin/pip install -r requirements.txt
