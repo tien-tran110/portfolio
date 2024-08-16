@@ -5,6 +5,8 @@ services:
     restart: always 
     env_file: 
       - .env
+    environment:
+      - TESTING=true
     depends_on:
       - mysql
 
@@ -14,8 +16,6 @@ services:
     restart: always 
     env_file:
       - .env
-    environment:
-      - TESTING=true
     volumes:
       - mydatabase:/var/lib/mysql
 
